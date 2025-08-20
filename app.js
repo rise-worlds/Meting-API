@@ -13,9 +13,9 @@ const customLogger = logger((message) => {
 	const now = format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS");
 	console.log(`[${now}] ${message}`);
 });
-//app.use('*', cors())
+app.use('*', cors())
 app.use('*', customLogger)
-app.use('*', logger())
+//app.use('*', logger())
 app.get('/api', api)
 app.get('/test', handler)
 app.get('/', (c) => {
