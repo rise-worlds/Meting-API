@@ -5,10 +5,16 @@ import { logger } from 'hono/logger'
 import { cors } from 'hono/cors'
 import config from './src/config.js'
 import { get_runtime, get_url } from './src/util.js'
+import { format } from 'date-fns';
 
 const app = new Hono()
 
-app.use('*', cors())
+const customLogger = logger((message) => {
+	const now = format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS");
+	console.log(`[${now}] ${message}`);
+});
+//app.use('*', cors())
+app.use('*', customLogger)
 app.use('*', logger())
 app.get('/api', api)
 app.get('/test', handler)
